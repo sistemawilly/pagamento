@@ -8,7 +8,6 @@
 
 <style>
 
-/* BASE RESPONSIVA */
 *{
   box-sizing: border-box;
 }
@@ -25,7 +24,6 @@ body{
   padding:15px;
 }
 
-/* CARD */
 .container{
   width:100%;
   max-width:380px;
@@ -37,14 +35,12 @@ body{
   box-shadow:0 0 25px rgba(212,175,55,0.4);
 }
 
-/* TÍTULO */
 h3{
   font-size:clamp(22px, 5vw, 28px);
   margin-bottom:15px;
   text-shadow:0 0 12px rgba(212,175,55,0.7);
 }
 
-/* QR CODE */
 .qr img{
   width:100%;
   max-width:220px;
@@ -57,7 +53,6 @@ h3{
   display:block;
 }
 
-/* INPUT */
 input{
   width:100%;
   padding:12px;
@@ -73,7 +68,6 @@ input{
   margin-bottom:15px;
 }
 
-/* BOTÃO */
 button{
   width:100%;
   padding:14px;
@@ -93,7 +87,7 @@ button:hover{
   box-shadow:0 0 25px rgba(212,175,55,0.8);
 }
 
-/* AJUSTE PARA TELAS MAIORES */
+/* RESPONSIVO EXTRA */
 @media (min-width:768px){
   .container{
     padding:30px;
@@ -117,20 +111,28 @@ button:hover{
 <div class="qr">
   <img src="pixx.JPG" alt="QR Code PIX">
 </div>
-<br><br>
+
 <input type="text" id="pix" value="1af02d14-b1b1-4ad9-8416-bf19fbef98f1" readonly>
-<br><br>
-<button onclick="copiarPix()">COPIAR CHAVE PIX</button>
-<br><br>
+
+<button id="btnPix" onclick="copiarPix()">COPIAR CHAVE PIX</button>
+
 </div>
 
 <script>
 function copiarPix(){
-  let pix = document.getElementById("pix");
-  pix.select();
-  pix.setSelectionRange(0, 99999);
-  document.execCommand("copy");
-  alert("PIX Copiado");
+  let pix = document.getElementById("pix").value;
+  let btn = document.getElementById("btnPix");
+
+  navigator.clipboard.writeText(pix).then(() => {
+    btn.innerText = "COPIADO ✔";
+
+    setTimeout(() => {
+      btn.innerText = "COPIAR CHAVE PIX";
+    }, 2000);
+
+  }).catch(() => {
+    alert("Erro ao copiar PIX");
+  });
 }
 </script>
 
